@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- GHL Typeform-Style Survey (Code Block Version) -->
+<style>
+    #survey-container {
+      max-width: 500px;
+      margin: 100px auto;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .step {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .step.active {
+      display: block;
+      opacity: 1;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button.prev-btn {
+      background: #ccc;
+    }
+    .progress-bar {
+      height: 5px;
+      background: #e0e0e0;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .progress {
+      height: 100%;
+      background: #4CAF50;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+  </style>
+  
+  <div id="survey-container">
+    <div class="progress-bar"><div class="progress" id="progress"></div></div>
+    <form id="surveyForm">
+      <div class="step active">
+        <h2>What is your name?</h2>
+        <input type="text" name="name" required>
+        <button type="button" class="next-btn">Next</button>
+      </div>
+  
+      <div class="step">
+        <h2>What is your email?</h2>
+        <input type="email" name="email" required>
+        <button type="button" class="prev-btn">Back</button>
+        <button type="button" class="next-btn">Next</button>
+      </div>
+  
+      <div class="step">
+        <h2>What's your phone number?</h2>
+        <input type="tel" name="phone" required>
+        <button type="button" class="prev-btn">Back</button>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+  
+  <script>
+    const steps = document.querySelectorAll('.step');
+    const progress = document.getElementById('progress');
+    let currentStep = 0;
+  
+    function updateProgressBar() {
+      const percentage = ((currentStep + 1) / steps.length) * 100;
+      progress.style.width = percentage + '%';
+    }
+  
+    document.querySelectorAll('.next-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (currentStep < steps.length - 1) {
+          steps[currentStep].classList.remove('active');
+          currentStep++;
+          steps[currentStep].classList.add('active');
+          updateProgressBar();
+        }
+      });
+    });
+  
+    document.querySelectorAll('.prev-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (currentStep > 0) {
+          steps[currentStep].classList.remove('active');
+          currentStep--;
+          steps[currentStep].classList.add('active');
+          updateProgressBar();
+        }
+      });
+    });
+  
+    document.getElementById('surveyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Form submitted successfully!');
+      // You can integrate GHL Form submission or Webhook here
+    });
+  
+    updateProgressBar();
+  </script>
+  
+</body>
+</html>
